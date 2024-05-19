@@ -1,6 +1,7 @@
 ﻿using ContactsManagement.Infra.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
+using ContactsManagement.Domain.Extensions;
 
 namespace ContactsManagement.Ioc;
 
@@ -9,5 +10,6 @@ public static class IoC
 {
     public static IServiceCollection IocConfig(this IServiceCollection services) =>
         services
-            .AddDapperInfra();
+            .AddDapperInfra()
+            .AddBusiness();
 }

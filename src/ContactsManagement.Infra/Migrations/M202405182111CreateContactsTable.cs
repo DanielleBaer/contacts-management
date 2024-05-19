@@ -12,28 +12,28 @@ public class M202405182111CreateContactsTable : Migration
     public override void Up()
     {
         Create.Table(TableName)
-            .WithColumn("ID")
+            .WithColumn("Id")
                 .AsInt64()
                 .Identity()
                 .NotNullable()
                 .WithColumnDescription("User unique identifier")
-             .WithColumn("NAVIGATION_ID")
+             .WithColumn("NavigationId")
                 .AsGuid()
                 .NotNullable()
                 .WithColumnDescription("User identification field of navigation")
-            .WithColumn("NAME")
+            .WithColumn("Name")
                 .AsString(50)
                 .WithColumnDescription("User name")
-            .WithColumn("EMAIL")
+            .WithColumn("Email")
                 .AsString(50)
                 .WithColumnDescription("User email")
-            .WithColumn("DDD")
+            .WithColumn("Ddd")
                 .AsString(2)
                 .WithColumnDescription("User direct distance dialing")
-            .WithColumn("PHONE_NUMBER")
+            .WithColumn("PhoneNumber")
                 .AsString(50)
                 .WithColumnDescription("User phone number")
-            .WithColumn("REGION_ID")
+            .WithColumn("RegionId")
                 .AsInt64()
                 .NotNullable()
                 .WithColumnDescription("Foreign key reference from Region"); ;
@@ -41,25 +41,25 @@ public class M202405182111CreateContactsTable : Migration
         Create
             .PrimaryKey("IDX_PK_CONTACTS")
             .OnTable(TableName)
-            .Column("ID");
+            .Column("Id");
 
         Create
-            .Index("IDX_UK_CONTACTS_NAVIGATION_ID")
+            .Index("IDX_UK_CONTACTS_NAVIGATIONID")
             .OnTable(TableName)
-            .OnColumn("NAVIGATION_ID")
+            .OnColumn("NavigationId")
             .Unique();
 
         Create
             .Index("IDX_SH_CONTACTS_DDD")
             .OnTable(TableName)
-            .OnColumn("DDD");
+            .OnColumn("Ddd");
 
         Create
             .ForeignKey()
             .FromTable(TableName)
-                .ForeignColumn("REGION_ID")
+                .ForeignColumn("RegionId")
             .ToTable("REGION")
-                .PrimaryColumn("ID");
+                .PrimaryColumn("Id");
     }
 
     public override void Down()
