@@ -22,12 +22,11 @@ public class ContactsController : ControllerBase
         _contactsService = contactsService;
     }
 
+    /// <summary>
+    /// Get all contacts
+    /// </summary>
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ContactsResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllAsync()
     {
         var contacts = await _contactsRepository.GetAllAsync();
@@ -35,11 +34,13 @@ public class ContactsController : ControllerBase
         return Ok(contacts.Select(ContactsResponse.From!));
     }
 
+    /// <summary>
+    /// Get contact by id
+    /// </summary>
+    /// <param name="id"></param>
     [HttpGet("by-id/{id:guid}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ContactsResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
     {
         var contact = await _contactsRepository.GetByNavigationIdAsync(id);
@@ -49,11 +50,13 @@ public class ContactsController : ControllerBase
             : NotFound();
     }
 
+    /// <summary>
+    /// Get contact by Ddd
+    /// </summary>
+    /// <param name="ddd"></param>
     [HttpGet("by-ddd/{ddd}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ContactsResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetByDddAsync([FromRoute] string ddd)
     {
         var contact = await _contactsRepository.GetByDddAsync(ddd);
@@ -63,12 +66,14 @@ public class ContactsController : ControllerBase
             : NotFound();
     }
 
+    /// <summary>
+    /// Create a contact
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> PostAsync([FromBody] ContactsRequest request)
     {
         var contactId = await _contactsService.CreateAsync(request.ToDomainModel());
@@ -78,12 +83,15 @@ public class ContactsController : ControllerBase
             : BadRequest();
     }
 
+    /// <summary>
+    /// Update a contact
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="request"></param>
+    /// <returns></returns>
     [HttpPut("{id:guid}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ContactsResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> PutAsync([FromRoute] Guid id, [FromBody] ContactsRequest request)
     {
         var contact = await _contactsService.UpdateAsync(request.ToDomainModel(id));
@@ -93,12 +101,14 @@ public class ContactsController : ControllerBase
             : BadRequest();
     }
 
+    /// <summary>
+    /// Delete a contact
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
     {
         return await _contactsRepository.DeleteAsync(id)
