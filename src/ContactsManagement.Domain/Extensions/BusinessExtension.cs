@@ -10,5 +10,7 @@ public static class BusinessExtension
 {
     public static IServiceCollection AddBusiness(this IServiceCollection services) =>
         services
-            .AddScoped<IContactsService, ContactsService>();
+            .AddScoped<IContactsService, ContactsService>()
+            .AddScoped<IUsersService, UsersService>()
+            .AddScoped<ITokenService, TokenService>();
 }
