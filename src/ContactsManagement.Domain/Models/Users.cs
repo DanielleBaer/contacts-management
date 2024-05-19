@@ -1,4 +1,4 @@
-﻿namespace ContactsManagement.Domain;
+﻿namespace ContactsManagement.Domain.Models;
 
 public class Users
 {
