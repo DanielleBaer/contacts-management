@@ -12,37 +12,37 @@ public class M202405182100CreateRegionTable : Migration
     public override void Up()
     {
         Create.Table(TableName)
-            .WithColumn("ID")
+            .WithColumn("Id")
                 .AsInt64()
                 .Identity()
                 .NotNullable()
                 .WithColumnDescription("Region unique identifier")
-            .WithColumn("NAVIGATION_ID")
+            .WithColumn("NavigationId")
                 .AsGuid()
                 .NotNullable()
                 .WithColumnDescription("Region identification field of navigation")
-            .WithColumn("DESCRIPTION")
+            .WithColumn("Description")
                 .AsString(50)
                 .WithColumnDescription("Region description")
-            .WithColumn("DDD")
+            .WithColumn("Ddd")
                 .AsString(2)
                 .WithColumnDescription("Region direct distance dialing");
 
         Create
             .PrimaryKey("IDX_PK_REGION")
             .OnTable(TableName)
-            .Column("ID");
+            .Column("Id");
 
         Create
-            .Index("IDX_UK_REGION_NAVIGATION_ID")
+            .Index("IDX_UK_REGION_NAVIGATIONID")
             .OnTable(TableName)
-            .OnColumn("NAVIGATION_ID")
+            .OnColumn("NavigationId")
             .Unique();
 
         Create
             .Index("IDX_SH_REGION_DDD")
             .OnTable(TableName)
-            .OnColumn("DDD");
+            .OnColumn("Ddd");
     }
 
     public override void Down()
