@@ -2,9 +2,11 @@
 
 public record Region
 {
-    public Guid NavigationId { get; set; }
+    public int Id { get; init; }
 
-    public string? Description { get; set; }
+    public Guid NavigationId { get; init; }
 
-    public string? Ddd { get; set; }
+    public string? Description { get; init; }
+
+    public string? Ddd { get; init; }
 }

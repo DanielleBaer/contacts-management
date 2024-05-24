@@ -1,5 +1,5 @@
-﻿using ContactsManagement.Infra.Repositories;
-using ContactsManagement.Infra.Repositories.Interfaces;
+﻿using ContactsManagement.Domain.Repositories;
+using ContactsManagement.Infra.Repositories;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Initialization;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +23,8 @@ public static class InfraServiceExtension
 
     private static IServiceCollection AddRepositories(this IServiceCollection services) =>
         services
-            .AddScoped<IContactsRepository, ContactsRepository>();
+            .AddScoped<IContactsRepository, ContactsRepository>()
+            .AddScoped<IRegionRepository, RegionRepository>();
 
     private static IServiceCollection AddDbConnection(this IServiceCollection services)
     {
