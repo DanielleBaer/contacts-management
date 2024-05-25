@@ -24,7 +24,8 @@ public static class InfraServiceExtension
     private static IServiceCollection AddRepositories(this IServiceCollection services) =>
         services
             .AddScoped<IContactsRepository, ContactsRepository>()
-            .AddScoped<IRegionRepository, RegionRepository>();
+            .AddScoped<IRegionRepository, RegionRepository>()
+            .AddScoped<IUsersRepository, UsersRepository>();
 
     private static IServiceCollection AddDbConnection(this IServiceCollection services)
     {

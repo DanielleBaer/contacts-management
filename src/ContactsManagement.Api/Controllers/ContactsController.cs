@@ -2,13 +2,14 @@
 using ContactsManagement.Domain.Models.Responses;
 using ContactsManagement.Domain.Repositories;
 using ContactsManagement.Domain.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContactsManagement.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-//[Authorize]
+[Authorize]
 public class ContactsController : ControllerBase
 {
     private readonly IContactsRepository _contactsRepository;
