@@ -1,5 +1,4 @@
 ﻿using ContactsManagement.Api.Controllers;
-using ContactsManagement.Api.Models.Requests;
 using ContactsManagement.Api.Tests.Fixture;
 using ContactsManagement.Domain.Models;
 using ContactsManagement.Domain.Models.Responses;

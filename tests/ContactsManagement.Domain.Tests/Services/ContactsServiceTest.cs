@@ -3,6 +3,7 @@ using ContactsManagement.Domain.Models;
 using ContactsManagement.Domain.Repositories;
 using ContactsManagement.Domain.Services;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace ContactsManagement.Domain.Tests.Services;
@@ -12,11 +13,13 @@ public class ContactsServiceTest
     private static readonly Faker _faker = new();
     private readonly Mock<IContactsRepository> _contactsRepositoryMock;
     private readonly Mock<IRegionRepository> _regionRepositoryMock;
+    private readonly Mock<ILogger<ContactsService>> _loggerMock;
 
     public ContactsServiceTest()
     {
         _contactsRepositoryMock = new(MockBehavior.Strict);
         _regionRepositoryMock = new(MockBehavior.Strict);
+        _loggerMock = new(MockBehavior.Default);
     }
 
     [Fact]
@@ -77,6 +80,7 @@ public class ContactsServiceTest
 
         // Assert
         result.Should().Be(Guid.Empty);
+        _loggerMock.Verify();
     }
 
     [Fact]
@@ -137,8 +141,13 @@ public class ContactsServiceTest
 
         // Assert
         result.Should().BeNull();
+        _loggerMock.Verify();
     }
 
-    private ContactsService BuildService() =>
-        new(_contactsRepositoryMock.Object, _regionRepositoryMock.Object);
+    private ContactsService BuildService() => new(
+        _contactsRepositoryMock.Object,
+        _regionRepositoryMock.Object,
+        _loggerMock.Object);
 }
+
+
