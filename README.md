@@ -1,2 +1,2 @@
 # contacts-management
-FIAP first Tech Challenge
+FIAP Tech Challenge
